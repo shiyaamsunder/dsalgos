@@ -2,10 +2,7 @@
 #include <ctype.h>
 #include "stack.h"
 
-
 int precedence(char c);
-
-void *infixToPostfix(char *c);
 
 int main(){
   printf("Infix to Postfix\n");
