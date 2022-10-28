@@ -1,11 +1,16 @@
 ## This project contains my implementation of data structures and algorithms using C.
 
 Data Structures
--[] Stack
--[] Queue
--[] Linked List
--[] Trees
--[] Graphs
+- [x] Stack
+
+- [ ] Queue
+
+- [ ] Linked List
+
+- [ ] Trees
+
+- [ ] Graphs
+
 
 
 ## PREREQ
