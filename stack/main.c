@@ -4,31 +4,31 @@
 
 
 
-void stack();
+void Stack();
 
 void infixToPostfix();
 
 int main(){
-  stack();
+  Stack();
   return 0;
 }
 
 
 
 
-void stack(){
+void Stack(){
 
   int c;
-  Stack stack=NULL;
+  pStack pStack=NULL;
 
   printf("\n=================== STACK IMPLEMENTATION USING ARRAYS ============================");
-  if(stack==NULL){
+  if(pStack==NULL){
     printf("\nCreate a new Stack with n elements.");
     int max;
     printf("\nEnter the maximum elements to be initialized with: ");
     scanf("%d", &max);
 
-    stack = create_stack(max);
+    pStack = create_stack(max);
   }
   do{
 
@@ -51,19 +51,19 @@ void stack(){
           int ele;
           printf("Enter the element: ");
           scanf("%d", &ele);
-          push(stack, ele);
+          push(pStack, ele);
           break;
 
         }
 
       case 2:
-        pop_print(stack);
+        pop_print(pStack);
         break;
       case 3:
-        top_print(stack);
+        top_print(pStack);
         break;
       case 4:
-        top_pop_print(stack);
+        top_pop_print(pStack);
         break;
     }
 
@@ -72,9 +72,9 @@ void stack(){
   while(c!=0);
 
 
-  if(stack == NULL) return;
+  if(pStack == NULL) return;
   printf("\nDeleting the stack from memory!");
-  dispose_stack(stack);
+  dispose_stack(pStack);
   printf("\nDeleted Stack. Exiting program\n"); 
 }
 

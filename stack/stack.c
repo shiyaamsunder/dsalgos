@@ -3,36 +3,39 @@
 #include<stdbool.h>
 #include "stack.h"
 
-Stack create_stack(int max)
+pStack create_stack(int max)
 {
+
+  pStack s = NULL;
 
   if(max<MIN_ELEMENT_SIZE){
     printf("\nThe size is too small, minimum size is %d\n", MIN_ELEMENT_SIZE);
-    return 0;
+    goto Exit;
   }
 
+  s = (pStack)malloc(sizeof (pStack));
 
-
-  Stack s = (Stack)malloc(sizeof (Stack));
   if(s == NULL){
     printf("\nError: OUT OF SPACE!!\n");
+    goto Exit;
   }
 
   s->arr = (INTEGER *)malloc(sizeof(INTEGER) * max);
 
   if(s->arr == NULL){
     printf("\nError: OUT OF SPACE!!\n");
-    return 0;
+    goto Exit;
   }
 
   s->capacity = max;
 
   make_empty(s);
 
+Exit:
   return s;
 }
 
-StackC create_stack_c(int max)
+pStackC create_stack_c(int max)
 {
 
   if(max<MIN_ELEMENT_SIZE){
@@ -40,7 +43,7 @@ StackC create_stack_c(int max)
     return 0;
   }
 
-  StackC s = (StackC)malloc(sizeof (StackC));
+  pStackC s = (pStackC)malloc(sizeof (pStackC));
   if(s == NULL){
     printf("\nError: OUT OF SPACE!!\n");
   }
@@ -56,7 +59,7 @@ StackC create_stack_c(int max)
 
   return s;
 }
-void dispose_stack(Stack s)
+void dispose_stack(pStack s)
 {
   if(s!=NULL)
   {
@@ -65,28 +68,30 @@ void dispose_stack(Stack s)
   }
 }
 
-void make_empty(Stack s){
+void make_empty(pStack s){
+  if(s==NULL) return;
   s->topOfStack = EMPTY_TOS;
 }
 
-void make_empty_c(StackC s){
+void make_empty_c(pStackC s){
+  if(s==NULL) return;
   s->topOfStack = EMPTY_TOS;
 }
-bool is_empty(Stack s){
+bool is_empty(pStack s){
   return s->topOfStack == EMPTY_TOS;
 }
 
-bool is_empty_c(StackC s){
+bool is_empty_c(pStackC s){
   return s->topOfStack == EMPTY_TOS;
 }
-bool is_full(Stack s){
+bool is_full(pStack s){
   return s->topOfStack == s->capacity-1;
 }
 
-bool is_full_c(StackC s){
+bool is_full_c(pStackC s){
   return s->topOfStack == s->capacity-1;
 }
-void push(Stack s, INTEGER element){
+void push(pStack s, INTEGER element){
   if(is_full(s)){
     printf("\nSTACK_OVERFLOW!!, no space for new elements\n");
   }
@@ -95,7 +100,7 @@ void push(Stack s, INTEGER element){
   }
 }
 
-void push_c(StackC s, CHARACTER element){
+void push_c(pStackC s, CHARACTER element){
   if(is_full_c(s)){
     printf("\nSTACK_OVERFLOW!!, no space for new elements\n");
   }
@@ -103,7 +108,7 @@ void push_c(StackC s, CHARACTER element){
     s->arr[++s->topOfStack]=element;
   }
 }
-INTEGER pop(Stack s)
+INTEGER pop(pStack s)
 {
   if(is_empty(s))
   {
@@ -116,7 +121,7 @@ INTEGER pop(Stack s)
 }
 
 
-CHARACTER pop_c(StackC s)
+CHARACTER pop_c(pStackC s)
 {
   if(is_empty_c(s))
   {
@@ -127,7 +132,7 @@ CHARACTER pop_c(StackC s)
     return s->arr[s->topOfStack--];
   }
 }
-void pop_print(Stack s)
+void pop_print(pStack s)
 {
   if(is_empty(s))
   {
@@ -139,7 +144,7 @@ void pop_print(Stack s)
   }
 }
 
-void pop_print_c(StackC s)
+void pop_print_c(pStackC s)
 {
   if(is_empty_c(s))
   {
@@ -150,7 +155,7 @@ void pop_print_c(StackC s)
     printf("\nPop successfull\n"); 
   }
 }
-void top_print(Stack s){
+void top_print(pStack s){
   if(!is_empty (s))
   {
       printf("\nTop Element: %d\n", s->arr[s->topOfStack]);
@@ -159,7 +164,7 @@ void top_print(Stack s){
   printf("\nEmpty Stack\n");
 }
 
-void top_print_c(StackC s){
+void top_print_c(pStackC s){
   if(!is_empty_c(s))
   {
       printf("\nTop Element: %c\n", s->arr[s->topOfStack]);
@@ -168,7 +173,7 @@ void top_print_c(StackC s){
   printf("\nEmpty Stack\n");
 }
 
-void top_pop_print(Stack s) {
+void top_pop_print(pStack s) {
   if(!is_empty(s))
   { 
       printf("\nPopped value: %d\n", s->arr[s->topOfStack--]);
@@ -177,7 +182,7 @@ void top_pop_print(Stack s) {
     printf("\nSTACK_UNDERFLOW!!, there are no elements to pop\n");
   }
 }
-void top_pop_print_c(StackC s) {
+void top_pop_print_c(pStackC s) {
   if(!is_empty_c(s))
   { 
       printf("\nPopped value: %c\n", s->arr[s->topOfStack--]);
