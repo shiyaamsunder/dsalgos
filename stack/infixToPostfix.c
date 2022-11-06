@@ -9,13 +9,15 @@ int main(){
 
   char exp[100];
 
-  char *c;
   printf("Enter the expression: ");
   scanf("%s", exp);
 
+
+  char* c;
+
   c=exp;
 
-  StackC s=NULL; 
+  pStackC s=NULL; 
   char x;
   s=create_stack_c(100);
   while(*c != '\0'){
@@ -56,4 +58,5 @@ int precedence(char c){
     return 1;
   return 0;
 }
+
 
