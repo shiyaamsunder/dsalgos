@@ -9,5 +9,4 @@ gcc -Wall -c ..\main.c -o ..\bin\main.o
 
 gcc -o ..\bin\queue ..\bin\queue.o ..\bin\main.o
 
-gcc -Wall -c ..\simplequeue.c -o ..\bin\simplequeue.o
 popd
