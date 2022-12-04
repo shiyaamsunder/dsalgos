@@ -7,7 +7,7 @@ Data Structures
 
 - [ ] Queue
   - [x] Array implementation
-  - [ ] Linked List implementation
+  - [x] Linked List implementation
 
 - [x] Linked List
 
