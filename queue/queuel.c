@@ -12,18 +12,22 @@ typedef struct node{
 
 typedef node* pNode;
 
+pNode front = NULL;
+pNode rear = NULL;
 
-void enqueue(pNode* head, int data);
-void dequeue(pNode* head);
-void display(pNode*);
+void enqueue(int);
+void dequeue();
+void display();
 bool is_empty();
 bool is_full();
 
+pNode create_node(int);
 
 int LENGTH=0;
+
 int main(){
+  system("cls");
   int choice;
-  pNode head = (pNode)malloc(sizeof(node));
 
   do{
     printf("1. Enqueue\n");
@@ -41,14 +45,14 @@ int main(){
         int data;
         printf("Enter data: ");
         scanf("%d", &data);
-        enqueue(&head, data);
+        enqueue(data);
         }
         break;
       case 2:
-        dequeue(&head);
+        dequeue();
         break;
       case 3:
-        display(&head);
+        display();
         break;
       case 0:
         exit(0);
@@ -63,72 +67,73 @@ int main(){
 }
 
 
-void enqueue(pNode* head, int data)
-{
+pNode create_node(int data){
+  pNode nn = (pNode)malloc(sizeof(node));
+  nn->data=data;
+  return nn;
+}
+void enqueue(int data){
   if(is_full())
   {
-    printf("Queue is full!\n");
+    printf("Queue is full\n");
     return;
   }
-  pNode nn = (pNode)malloc(sizeof(struct node));
-  nn->data = data;
 
-  if(is_empty()){
-    nn->next = NULL;
-    LENGTH=1;
-    *head=nn;
-    return;
+  pNode nn = create_node(data);
+  nn->next=NULL;
+
+  if(front == NULL)
+  {
+    front=rear=nn;
   }
-  nn->next = *head;
-  *head=nn;
+  else{
+    rear->next=nn;
+    rear=nn;
+  }
+
   LENGTH++;
-  printf("Enqueued\n");
+  printf("Queued!\n");
 }
 
-void dequeue(pNode* head){
-  if(is_empty())
-  {
-    printf("Queue is empty!\n");
+void dequeue()
+{
+  if(is_empty()){
+    printf("Queue is empty\n");
     return;
   }
 
-  if(LENGTH==1){
-    LENGTH=0;
+  if(front == rear){
+    front=rear=NULL;
     return;
   }
-  pNode temp=*head;
-  pNode prev;
-  while(temp->next!=NULL){
-    prev=temp;
-    temp=temp->next;
-  }
-  prev->next=NULL;
+
+  pNode temp = front;
+  front = front->next;
   free(temp);
   LENGTH--;
-  printf("Dequeued\n");
+  printf("Dequeued!\n");
 }
 
-void display(pNode* head){
+bool is_empty(){
+  return (front == NULL) && (rear == NULL); 
+}
+
+bool is_full(){
+  return (LENGTH - 1 == MAX_QUEUE_LENGTH);
+}
+
+void display(){
   if(is_empty())
   {
     printf("Queue is empty\n");
     return;
   }
-  pNode temp=*head;
-  int i=1;
-  while(i<=LENGTH)
-  {
+
+  pNode temp = front;
+  while(temp->next != NULL){
     printf("%d ", temp->data);
     temp=temp->next;
-    i++;
   }
-  printf("\n");
-}
+  printf("%d \n", temp->data);
 
-bool is_full(){
-  return LENGTH==MAX_QUEUE_LENGTH;
-}
-
-bool is_empty(){
-  return LENGTH==0;
 }
