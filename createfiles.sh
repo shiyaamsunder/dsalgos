@@ -12,7 +12,7 @@ cd ./$FILENAME
 mkdir include
 cd ./include && touch $FILENAME.h
 cd ..
-touch $FILENAME.c main.c compile.sh run.sh
+touch $FILENAME.c main.c compile.sh run.sh compile_flags.txt
 
 cat << EOF > compile.sh
 #!/usr/bin/env bash
@@ -38,4 +38,11 @@ EOF
 cat << EOF > run.sh
 #!/usr/bin/env bash
 ./compile.sh && ./bin/$FILENAME
+EOF
+
+cat << EOF > compile_flags.txt
+-Wall
+-std=c99
+-Iinclude 
+-I../include
 EOF
