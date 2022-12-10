@@ -1,12 +1,13 @@
 @echo off
+SETLOCAL ENABLEDELAYEDEXPANSION
 if not exist .\bin mkdir .\bin
 
-pushd .\bin
+SET CC=gcc
+SET FLAGS=-std=c99 -Iinclude -I..\include
 
-gcc -Wall -c ..\ll.c -o ..\bin\ll.o
-gcc -Wall -c ..\main.c -o ..\bin\main.o
+SET cFiles=
+FOR /R %%f in (*.c) do (
+  SET cFiles=!cFiles! %%f
+)
 
-
-gcc -o ..\bin\ll ..\bin\ll.o ..\bin\main.o
-
-popd
+%CC% %cFiles% -o .\bin\main.exe %FLAGS%

@@ -1,1 +1,1 @@
-.\compile.bat && .\bin\ll.exe
+.\compile.bat && .\bin\main.exe

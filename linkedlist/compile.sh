@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 
 BIN_DIRECTORY="bin"
+CC="gcc"
+FLAGS="-std=c99 -Iinclude -I../include"
+
+declare -a cFiles
+for file in *.c
+do
+  cFiles=(${cFiles[@]} "$file")
+done
 
 if [ ! -d $BIN_DIRECTORY ]; then
   mkdir ./bin
 fi
 
-gcc -Wall -c ll.c -o ./bin/ll.o
-gcc -Wall -c main.c -o ./bin/main.o
-gcc -o ./bin/ll ./bin/ll.o ./bin/main.o
+$CC "${cFiles[@]}" -o ./bin/main $FLAGS
+

@@ -1,1 +1,1 @@
-./compile.sh && ./bin/ll
+./compile.sh && ./bin/main
