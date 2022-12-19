@@ -15,8 +15,9 @@ void inorder(node_ptr root);
 void preorder(node_ptr root);
 void postorder(node_ptr root);
 void levelorder(node_ptr root);
-void delete(int data);
+node_ptr delete(node_ptr root, int data);
 int height(node_ptr root);
+node_ptr min_val_node(node_ptr node);
 
 
 int main(){
@@ -53,8 +54,10 @@ int main(){
       break;
     case 5:
       printf("\nTO BE IMPLEMENTED\n");
-      // TODO: Implement delete a node
-      // delete(int data);
+      int ele;
+      printf("Enter the value to be deleted: ");
+      scanf("%d", &ele);
+      delete(root,ele);
       break;
 
     case 6:
@@ -120,5 +123,45 @@ int height(node_ptr root){
   {
     return (rheight + 1);
   }
+}
 
+
+node_ptr delete(node_ptr root, int data){
+  if(root==NULL) return NULL;
+
+  if(root->data==data){
+    if(root->right == NULL && root->left == NULL){
+      free(root);
+      return NULL;
+    }
+    else if(root->left == NULL){
+      node_ptr temp = root;
+      temp=root->right;
+      free(root);
+      return temp;
+    }
+    else if(root->right == NULL){
+      node_ptr temp = root;
+      temp=root->left;
+      free(root);
+      return temp;
+    }
+    else{
+      node_ptr temp = min_val_node(root);
+      root->data = temp->data;
+      root->right = delete(root->right, temp->data);
+      free(temp);
+    }
+  }
+  root->left = delete(root->left, data);
+	root->right = delete(root->right, data);
+	return root;
+
+}
+node_ptr min_val_node(node_ptr node)
+{
+    node_ptr current = node;
+    while (current && current->left != NULL)
+        current = current->left;
+    return current;
 }
