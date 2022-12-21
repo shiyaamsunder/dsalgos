@@ -3,60 +3,96 @@
 #include <stdlib.h>
 #include <binary.h>
 
-node_ptr create_node(int data){
-    node_ptr nn  = malloc(sizeof(node));
-    nn->data=data;
-    nn->left=NULL;
-    nn->right=NULL;
-    return nn;
-}
-
-node_ptr create()  
-{  
-    node_ptr temp;
-    int data, choice;  
-    temp = (node_ptr)malloc(sizeof(node_ptr));  
-    printf("\nPress 0 to exit");  
-    printf("\nPress 1 for new node");  
-    printf("\nEnter your choice : ");  
-    scanf("%d", &choice);   
-    if(choice==0)  
-    {  
-        return 0;  
-    }  
-    else  
-    {  
-        printf("\nEnter the data:");  
-        scanf("%d", &data);  
-        temp->data = data;  
-        printf("\nEnter the left child of %d", data);  
-        temp->left = create();  
-        printf("\nEnter the right child of %d", data);  
-        temp->right = create();  
-        return temp;   
-    }  
+node_ptr create(){
+  int value;
+  node_ptr nn = malloc(sizeof(node));
+  scanf("%d", &value);
+  nn->data=value;
+  if(value==-1) return 0;
+  printf("Enter the value for the left child of %d: ", value);
+  nn->left = create();
+  printf("Enter the value for the right child of %d: ", value);
+  nn->right = create();
+  return nn;
 }
 
 
-void inorder(node_ptr tree){
-    if(tree == NULL) return;
-    inorder(tree->left);
-    printf("%d\n", tree->data);
-    inorder(tree->right);
+void inorder(node_ptr root){
+  if(root==NULL) return;
+  inorder(root->left);
+  printf("%d ", root->data);
+  inorder(root->right);
 }
 
-void postorder(node_ptr tree){
-    if(tree) {
-        postorder(tree->left);
-        postorder(tree->right);
-        printf("%d\n", tree->data);
+void postorder(node_ptr root){
+  if(root==NULL) return;
+  postorder(root->left);
+  postorder(root->right);
+  printf("%d ", root->data);
+}
+
+void preorder(node_ptr root){
+  if(root==NULL) return;
+  printf("%d ", root->data);
+  preorder(root->left);
+  preorder(root->right);
+}
+
+void levelorder(node_ptr root){
+  if(root==NULL) return;
+  printf("%d ", root->data);
+}
+
+int height(node_ptr root){
+  if(root==NULL) return 0;
+  int lheight = height(root->left);
+  int rheight = height(root->right);
+
+  if(lheight > rheight){
+    return (lheight + 1);
+  }else
+  {
+    return (rheight + 1);
+  }
+}
+
+
+node_ptr delete(node_ptr root, int data){
+  if(root==NULL) return NULL;
+
+  if(root->data==data){
+    if(root->right == NULL && root->left == NULL){
+      free(root);
+      return NULL;
     }
-}
-
-void preorder(node_ptr tree){
-    if(tree) {
-        printf("%d\n", tree->data);
-        preorder(tree->left);
-        preorder(tree->right);
+    else if(root->left == NULL){
+      node_ptr temp = root;
+      temp=root->right;
+      free(root);
+      return temp;
     }
+    else if(root->right == NULL){
+      node_ptr temp = root;
+      temp=root->left;
+      free(root);
+      return temp;
+    }
+    else{
+      node_ptr temp = min_val_node(root);
+      root->data = temp->data;
+      root->right = delete(root->right, temp->data);
+      free(temp);
+    }
+  }
+  root->left = delete(root->left, data);
+	root->right = delete(root->right, data);
+	return root;
+
+}
+node_ptr min_val_node(node_ptr node)
+{
+    node_ptr current = node;
+    while (current && current->left != NULL)
+        current = current->left;
+    return current;
 }

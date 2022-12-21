@@ -14,10 +14,10 @@ struct _node
 node_ptr create_node(int data);
 void insert(node_ptr* tree, int data);
 void del_tree(node_ptr tree);
-node_ptr del_node(node_ptr root, int data);
 node_ptr search(node_ptr* tree, int data);
 void print_preorder(node_ptr tree);
-node_ptr min_val_node(node_ptr node);
+void print_postorder(node_ptr tree);
+void print_inorder(node_ptr tree);
 
 int main(){
   system("cls");
@@ -27,8 +27,9 @@ int main(){
   {
     printf("\n1. Insert");
     printf("\n2. Search");
-    printf("\n3. Print the elements");
-    printf("\n4. Delete a node.");
+    printf("\n3. Print the elements in pre order");
+    printf("\n4. Print the elements in post order");
+    printf("\n5. Print the elements in in order");
     printf("\n\nEnter '0' to quit.");
     printf("\n\nEnter choice: ");
     scanf("%d", &c);
@@ -61,14 +62,11 @@ int main(){
       print_preorder(root);
       break;
     case 4:
-    {
-
-      int ele;
-      printf("Enter a node to be deleted: ");
-      scanf("%d", &ele);
-      del_node(root, ele);
+      print_postorder(root);
       break;
-    }
+    case 5:
+      print_inorder(root);
+      break;
     default:
       break;
     }
@@ -124,45 +122,26 @@ void print_preorder(node_ptr tree)
   }
 }
 
+void print_inorder(node_ptr tree){
+  if(tree){
+    print_inorder(tree->left);
+    printf("%d\n", tree->data);
+    print_inorder(tree->right);
+  }
+}
+
+void print_postorder(node_ptr tree){
+  if(tree){
+    print_postorder(tree->left);
+    print_postorder(tree->right);
+    printf("%d\n", tree->data);
+  }
+}
+
 void del_tree(node_ptr tree){
   if(tree){
     tree->left=NULL;
     tree->right=NULL;
     free(tree);
   }
-}
-node_ptr min_val_node(node_ptr node)
-{
-    node_ptr current = node;
-    while (current && current->left != NULL)
-        current = current->left;
-    return current;
-}
-
-
-node_ptr del_node(node_ptr root, int data){
-  if(root==NULL)return root;
-
-  if(data < root->data){
-    root->left = del_node(root->left, data);
-  }
-  else if(data > root->data){
-    root->right = del_node(root->right, data);
-  }
-  else{
-      if (root->left == NULL) {
-            node_ptr temp = root->right;
-            free(root);
-            return temp;
-        }
-        else if (root->right == NULL) {
-            node_ptr temp = root->left;
-            free(root);
-            return temp;
-        }
-        node_ptr temp = min_val_node(root->right);
-        root->data = temp->data;
-        root->right = del_node(root->right, temp->data);
-    }
-    return root;  
 }
