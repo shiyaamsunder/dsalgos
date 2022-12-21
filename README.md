@@ -1,17 +1,23 @@
 ## This project contains my implementation of data structures and algorithms using C.
 
 Data Structures
-- [ ] Stack
-  - [x] Array implementation
-  - [ ] Linked List implementation
+- [x] Linked List
+    - [x] Singly Linked List
+    - [x] Doubly Linked List
 
-- [ ] Queue
+- [x] Stack
   - [x] Array implementation
   - [x] Linked List implementation
 
-- [x] Linked List
+- [x] Queue
+  - [x] Array implementation
+  - [x] Linked List implementation
 
 - [ ] Trees
+    - [x] Binary Tree 
+    - [x] Binary Search Tree
+    - [ ] AVL Tree 
+    - [ ] Expression Tree
 
 - [ ] Graphs
 
