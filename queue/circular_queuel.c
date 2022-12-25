@@ -36,7 +36,7 @@ int main(){
     printf("1. Enqueue\n");
     printf("2. Dequeue\n");
     printf("3. Display\n");
-    // printf("4. Search\n");
+    printf("4. Search\n");
     printf("Enter choice: (1/2/3/4): ");
 
     scanf("%d", &choice);
@@ -58,14 +58,14 @@ int main(){
       case 3:
         display();
         break;
-      // case 4:
-      // {
-      //   int ele;
-      //   printf("Enter element: ");
-      //   scanf("%d", &ele);
-      //   search(ele);
-      //   break;
-      // }
+       case 4:
+       {
+         int ele;
+         printf("Enter element: ");
+         scanf("%d", &ele);
+         search(ele);
+         break;
+       }
       case 0:
         exit(0);
         break;
@@ -151,26 +151,26 @@ pNode create_node(int data){
   return nn;
 }
 
-// void search(int data){
-//   if(is_empty())
-//   {
-//     printf("Queue is empty\n");
-//     return;
-//   }
-//   bool found = false;
-//   pNode temp=front;
-//   int pos=LENGTH;
-//   while(pos > 0){
-//     if(temp->data == data){
-//       printf("Element found at position at %d\n", pos);
-//       found=true;
-//       break;
-//     }
-//     temp=temp->next;
-//     pos--;
-//   }
+void search(int data){
+    if(is_empty())
+    {
+        printf("Queue is empty\n");
+        return;
+    }
+    bool found = false;
+    pNode temp=front;
+    int pos=0;
+    while(pos <= LENGTH){
+        if(temp->data == data){
+            printf("Element found at position at %d\n", pos+1);
+            found=true;
+            break;
+        }
+        temp=temp->next;
+        pos++;
+    }
 
-//   if(!found){
-//     printf("Element not found\n");
-//   }
-// }
+    if(!found){
+        printf("Element not found\n");
+    }
+}
