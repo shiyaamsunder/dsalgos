@@ -126,7 +126,7 @@ int rehashing(int* hash_table, int m, int size){
         return 0;
     }
     hash_table=temp;
-    printf("\nREHASHING\n");
+   printf("\nREHASHING\n");
     for(int i=prev; i<size; i++)
     {
         hash_table[i] = -1;

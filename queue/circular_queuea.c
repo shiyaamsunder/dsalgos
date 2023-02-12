@@ -90,7 +90,7 @@ void dequeue(){
     front = rear = -1;
     return;
   }
-  front = (front + 1) % MAX_QUEUE_LENGTH;
+  rear = (rear - 1) % MAX_QUEUE_LENGTH;
   printf("Dequeued!\n");
 
 }
@@ -100,7 +100,7 @@ void display(){
     printf("Queue is empty\n");
     return;
   }
-  for(int i=front; i<=rear; i++){
+  for(int i=rear; i>=front; i--){
     printf("%d ", queue[i]);
   }
 
